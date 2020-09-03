@@ -39,7 +39,7 @@ def startMiniCourse(listToLearn):
         else:
             print(listToLearn)
         sp.call('clear',shell=True)
-    print("You better remember these: " + str([key for key, value in Counter(forgot).most_common()] ))
+    return [key for key, value in Counter(forgot).most_common()]
 
 def startAlphabetCourse(alphabet, start, end):
     filteredWords = []
@@ -51,13 +51,16 @@ def startAlphabetCourse(alphabet, start, end):
         filteredWords = forgoten
     l = len(filteredWords)
     s = slice(int(l*float(sys.argv[2])/100),int(l*float(sys.argv[3])/100))
-    startMiniCourse(filteredWords[s])
+
+    print("You better remember these: "+ str(int(l*float(sys.argv[2])/100))+"-"+str(int(l*float(sys.argv[3])/100))+" "+ str(startMiniCourse(filteredWords[s])))
 
 def startSetCourse(start, end):
+    forgot = []
     if len(sys.argv)!=4:
-        startMiniCourse(allWords[slice(int(sys.argv[1]),int(sys.argv[2]))])
+        forgot  = startMiniCourse(allWords[slice(int(sys.argv[1]),int(sys.argv[2]))])
     else:
-        startMiniCourse(forgoten[slice(int(sys.argv[1]),int(sys.argv[2]))])
+        forgot = startMiniCourse(forgoten[slice(int(sys.argv[1]),int(sys.argv[2]))])
+    print("You better remember these: "+sys.argv[1]+"-"+sys.argv[2]+" "+str(forgot))
 
 if sys.argv[1][0].isalpha():
     startAlphabetCourse(sys.argv[1], sys.argv[2], sys.argv[3])
