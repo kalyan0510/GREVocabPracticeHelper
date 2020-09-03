@@ -6,6 +6,8 @@ import random
 import sys
 import readchar
 import subprocess as sp
+from collections import Counter 
+
 
 def_params = ['python', '0', '10']
 
@@ -37,7 +39,7 @@ def startMiniCourse(listToLearn):
         else:
             print(listToLearn)
         sp.call('clear',shell=True)
-    print("You better remember these: " + str(forgot))
+    print("You better remember these: " + str([key for key, value in Counter(forgot).most_common()] ))
 
 def startAlphabetCourse(alphabet, start, end):
     filteredWords = []
